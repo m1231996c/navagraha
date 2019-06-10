@@ -1,22 +1,23 @@
-#include <iostream>
-#include <string>
+#include "extensions/yaml2json.hpp"
 #include <sstream>
 
-using namespace std;
+#include <iostream>
 
+namespace navagraha{
+	namespace extensions{
 class yaml2json
 {
 	private:
-		static string strTrimF(string a)
+		static std::string strTrimF(std::string a)
 		{
 			int i = 0;
 			while (a[i]==' ') i++;
 			a = a.substr(i);
 			return a;
 		}
-		static bool IsNumber(string str)
+		static bool IsNumber(std::string str)
 		{
-			stringstream sin(str);  
+			std::stringstream sin(str);  
 			double d;  
 			char c;  
 			if(!(sin >> d))  
@@ -25,16 +26,16 @@ class yaml2json
 				return false;  
 			return true;  
 		}
-		static string checkNull(string str,string tar)
+		static std::string checkNull(std::string str,std::string tar)
 		{
 			int len = tar.length();
 			if (str.find(tar)!=-1) str = str.replace(str.find(tar), len, ": null" + tar.substr(len-1));
 			return str;
 		}
 	public:
-		static string getJson(string yamlstr)
+		static std::string getJson(std::string yamlstr)
 		{
-			string jsonstr, linestr, keystr, valuestr;char markstr[] = "";
+			std::string jsonstr, linestr, keystr, valuestr;char markstr[] = "";
 			int i,nowkey,lastkey,top;
 			top = -1;lastkey = -1;
 			while (yamlstr != "")
@@ -121,3 +122,5 @@ class yaml2json
 			return jsonstr;
 		}
 };
+}
+}
